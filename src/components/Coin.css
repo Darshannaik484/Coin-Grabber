@@ -1,0 +1,32 @@
+.coin {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  font-size: 30px;
+  cursor: pointer;
+  user-select: none;
+  transition: transform 0.2s ease-out;
+}
+
+.coin:hover {
+  transform: scale(1.2);
+}
+
+.coin.collected {
+  animation: collect 0.3s ease-out forwards;
+}
+
+@keyframes collect {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.5);
+    opacity: 0.5;
+  }
+  100% {
+    transform: scale(0);
+    opacity: 0;
+  }
+} 

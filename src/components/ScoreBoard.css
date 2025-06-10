@@ -1,0 +1,14 @@
+.score-board {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 20px;
+  background-color: rgba(0, 0, 0, 0.3);
+  border-radius: 8px;
+  margin-bottom: 20px;
+  font-size: 1.2em;
+  color: #61dafb;
+}
+
+.score, .timer {
+  font-weight: bold;
+} 
