@@ -1,1 +1,1 @@
-# Coin-Grabber
+# Coin-Grabber game implemented in react.
