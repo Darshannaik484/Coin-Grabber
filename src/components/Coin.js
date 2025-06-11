@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import './Coin.css';
+import React, { useEffect, useState } from "react";
+import "./Coin.css";
 
 function Coin({ id, x, y, onCollect }) {
   const [position, setPosition] = useState({ x, y });
@@ -7,9 +7,9 @@ function Coin({ id, x, y, onCollect }) {
 
   useEffect(() => {
     const fallInterval = setInterval(() => {
-      setPosition(prev => ({
+      setPosition((prev) => ({
         x: prev.x,
-        y: prev.y + 10
+        y: prev.y + 12,
       }));
 
       // Only remove coin if it goes below the game box (400px height)
@@ -33,16 +33,15 @@ function Coin({ id, x, y, onCollect }) {
 
   return (
     <div
-      className={`coin ${isCollected ? 'collected' : ''}`}
+      className={`coin ${isCollected ? "collected" : ""}`}
       style={{
         left: `${position.x}px`,
         top: `${position.y}px`,
       }}
-      onMouseEnter={handleMouseEnter}
-    >
+      onMouseEnter={handleMouseEnter}>
       🪙
     </div>
   );
 }
 
-export default Coin; 
+export default Coin;

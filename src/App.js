@@ -1,14 +1,14 @@
-import React from 'react';
-import GameBox from './components/GameBox';
-import './App.css';
+import React from "react";
+import GameBox from "./components/GameBox";
+import "./App.css";
 
 function App() {
   return (
     <div className="App">
-      <h1>Coin Grabber</h1>
+      <h1>Coin Grabber Game</h1>
       <GameBox />
     </div>
   );
 }
 
-export default App; 
+export default App;
