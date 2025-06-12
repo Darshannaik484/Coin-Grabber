@@ -1,8 +1,8 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import Coin from './Coin';
-import ScoreBoard from './ScoreBoard';
-import GameOver from './GameOver';
-import './GameBox.css';
+import React, { useState, useEffect, useCallback } from "react";
+import Coin from "./Coin";
+import ScoreBoard from "./ScoreBoard";
+import GameOver from "./GameOver";
+import "./GameBox.css";
 
 const GAME_DURATION = 30; // seconds
 const SPAWN_INTERVAL = 300; // milliseconds (3-4 coins per second)
@@ -14,23 +14,31 @@ function GameBox() {
   const [score, setScore] = useState(0);
   const [timeLeft, setTimeLeft] = useState(GAME_DURATION);
   const [isGameOver, setIsGameOver] = useState(false);
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+
+  const handleMouseMove = useCallback((e) => {
+    setMousePosition({
+      x: e.clientX,
+      y: e.clientY,
+    });
+  }, []);
 
   const spawnCoin = useCallback(() => {
     if (coins.length >= MAX_COINS) return;
-    
+
     const newCoin = {
       id: Date.now(),
       x: Math.random() * (window.innerWidth - 50), // Random x position
       y: -50, // Start above the game box
     };
-    
-    setCoins(prevCoins => [...prevCoins, newCoin]);
+
+    setCoins((prevCoins) => [...prevCoins, newCoin]);
   }, [coins.length]);
 
   const removeCoin = useCallback((id, shouldIncrementScore) => {
-    setCoins(prevCoins => prevCoins.filter(coin => coin.id !== id));
+    setCoins((prevCoins) => prevCoins.filter((coin) => coin.id !== id));
     if (shouldIncrementScore) {
-      setScore(prevScore => prevScore + 1);
+      setScore((prevScore) => prevScore + 1);
     }
   }, []);
 
@@ -39,7 +47,7 @@ function GameBox() {
     if (isGameOver) return;
 
     const timer = setInterval(() => {
-      setTimeLeft(prevTime => {
+      setTimeLeft((prevTime) => {
         if (prevTime <= 1) {
           clearInterval(timer);
           setIsGameOver(true);
@@ -68,10 +76,10 @@ function GameBox() {
   };
 
   return (
-    <div className="game-container">
+    <div className="game-container" onMouseMove={handleMouseMove}>
       <ScoreBoard score={score} timeLeft={timeLeft} />
       <div className="game-box">
-        {coins.map(coin => (
+        {coins.map((coin) => (
           <Coin
             key={coin.id}
             id={coin.id}
@@ -81,11 +89,17 @@ function GameBox() {
           />
         ))}
       </div>
-      {isGameOver && (
-        <GameOver score={score} onRestart={handleRestart} />
-      )}
+      <div
+        className="bucket"
+        style={{
+          left: `${mousePosition.x}px`,
+          top: `${mousePosition.y}px`,
+        }}>
+        🪣
+      </div>
+      {isGameOver && <GameOver score={score} onRestart={handleRestart} />}
     </div>
   );
 }
 
-export default GameBox; 
+export default GameBox;
